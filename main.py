@@ -12,7 +12,7 @@ from sklearn.datasets import load_iris
 # API functions for discretizising
 from data import make_category, generate_bins, discretizise, training_validation_split
 
-def kkN(data):
+def kNeigbours(data):
     print("kNN")
 
 def trees(data):
@@ -43,7 +43,7 @@ def main():
     data = discretizise()
 
     # Generate kNN Classifier
-    neighbourhood = kNN(data)
+    neighbourhood = kNeigbours(data)
 
     # Generate Decision Tree Classifier
     forest = trees(data)
