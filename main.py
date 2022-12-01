@@ -12,34 +12,36 @@ from sklearn.datasets import load_iris
 # API functions for discretizising
 from data import make_category, generate_bins, discretizise, training_validation_split
 
-# Import 
-unclean_data = pd.read_csv('spambase.csv')
-# Discretizise using totally not stolen API
-data = discretizise()
-
 def kkN(data):
-    pass
+    print("kNN")
 
 def trees(data):
-    pass
+    print("Trees")
 
 def logReg(data):
-    pass
+    print("logReg")
 
 def ten_fold_cross_val():
-    pass
+    print("Crossval")
 
 def friedman():
-    pass
+    print("Friedman")
 
 def significance(level:float = 0.05, vals:list = []):
+    print("significance")
     if vals is []:
         return
 
 def Nemeyi():
-    pass
+    print("nemeyi")
 
 def main():
+    # Import 
+    unclean_data = pd.read_csv('spambase.csv')
+
+    # Discretizise using totally not stolen API
+    data = discretizise()
+
     # Generate kNN Classifier
     neighbourhood = kNN(data)
 
@@ -64,3 +66,9 @@ def main():
 
     # Conduct Nemeyi test
     NemeyiResult = Nemeyi()
+
+    print("Finished with no errors :)")
+
+
+if __name__ == "__main__":
+    main()
