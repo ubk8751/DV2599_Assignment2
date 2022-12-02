@@ -27,4 +27,4 @@ def gen_models(trx_data, try_data, tex_data):
     # Genrate Logarithmic Regression Classifier
     longboi = logReg(trx_data, try_data, tex_data)
 
-    return ("K Nearest Neighbour Classifier", neighbourhood), ("Decision Tree Classifier", forest), ("Logarithmic Regression Classifier", longboi)
+    return ("KNN", neighbourhood), ("Decision Tree", forest), ("Log-Reg", longboi)
