@@ -4,16 +4,15 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier as kNN
 from sklearn.linear_model import _logistic as logMod
 from sklearn.tree import DecisionTreeClassifier as treMod
-
-# Dunno what these do yet
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_iris
 
 # API functions for discretizising
-from data import make_category, generate_bins, discretizise, training_validation_split
+from data import discretizise, training_validation_split
 
-def kNeigbours(data):
-    print("kNN")
+def kNeigbours(trx_data, try_data, tex_data):
+    knn = kNN(n_neighbors=8)
+    knn.fit(trx_data, try_data)
+    return knn
 
 def trees(data):
     print("Trees")
@@ -36,14 +35,19 @@ def Nemeyi():
     print("nemeyi")
 
 def main():
-    # Import 
+    # Import data
     unclean_data = pd.read_csv('spambase.csv')
 
     # Discretizise using totally not stolen API
-    data = discretizise()
+    old_data, data = discretizise()
+
+    # Split dataset into Training- and Validation Data
+    y_data = old_data["is_spam"]
+    x_data = old_data.iloc[:,:-1]
+    trx_data, tex_data, try_data, tey_data = train_test_split(x_data, y_data, test_size=0.3, random_state=42)
 
     # Generate kNN Classifier
-    neighbourhood = kNeigbours(data)
+    neighbourhood = kNeigbours(trx_data, try_data, tex_data)
 
     # Generate Decision Tree Classifier
     forest = trees(data)
