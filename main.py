@@ -28,8 +28,10 @@ def perform_friedman(ten_fold_data):
     if debug:
 
         dfv = np.array([a[1] for a in ten_fold_data]).transpose()
-        dfv = np.concatenate((dfv, np.mean(dfv, axis=0).reshape(1,-1)), axis=0)
-        dfv = np.concatenate((dfv, np.std(dfv, axis=0).reshape(1,-1)), axis=0)
+        dfv_mean = np.mean(dfv, axis=0)
+        dfv_std = np.std(dfv, axis=0)
+        dfv = np.concatenate((dfv, dfv_mean.reshape(1,-1)), axis=0)
+        dfv = np.concatenate((dfv, dfv_std.reshape(1,-1)), axis=0)
         fold_range = [str(i) for i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "avg", "stdev"]]
 
         print('\n\n----12.4-like print', end='')
