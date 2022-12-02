@@ -1,17 +1,14 @@
 # Import necessary modules
 import pandas as pd
-#import numpy as np
+import numpy as np
 from sklearn.model_selection import train_test_split
 
 # Team written APIs
 from models import gen_models
 from data import discretizise
-from validations import ten_fold_cross_val
+from validations import ten_fold_cross_val, friedman
 
 debug = False
-
-def friedman():
-    print("Friedman")
 
 def significance(level:float = 0.05, vals:list = []):
     print("significance")
@@ -46,10 +43,13 @@ def main():
             print()
 
     # Friedman Tests
-    kNNFriedman = friedman()
-    treeFriedman = friedman()
-    logFriedman = friedman()
-    
+    test_results = []
+    for alg in validationMatrix:
+        test_results.append(friedman(alg))
+    if debug == True:
+        for result in test_results:
+            print(result)
+
     vals = []
 
     # Determine significance on 0.5-alpha level
