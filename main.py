@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 # Team written APIs
 from models import gen_models
 from data import discretizise
-from validations import ten_fold_cross_val, friedman
+from validations import ten_fold_cross_val, friedman, issignificant
 
 debug = False
 
@@ -45,15 +45,13 @@ def main():
     # Friedman Tests
     test_results = []
     for alg in validationMatrix:
-        test_results.append(friedman(alg))
+        test_results.append(friedman(alg, 3))
     if debug == True:
         for result in test_results:
             print(result)
-
-    vals = []
-
+    
     # Determine significance on 0.5-alpha level
-    zerofivesignificance = significance(0.5, vals)
+    cv = issignificant(test_results, 0.05)
 
     # Conduct Nemeyi test
     NemeyiResult = Nemeyi()
