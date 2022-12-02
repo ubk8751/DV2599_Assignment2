@@ -1,27 +1,14 @@
 # Import necessary modules
 import pandas as pd
-import numpy as np
-from sklearn.neighbors import KNeighborsClassifier as kNN
-from sklearn.linear_model import _logistic as logMod
-from sklearn.tree import DecisionTreeClassifier as treMod
+#import numpy as np
 from sklearn.model_selection import train_test_split
 
-# API functions for discretizising
-from data import discretizise, training_validation_split
+# Team written APIs
+from models import gen_models
+from data import discretizise
+from validations import ten_fold_cross_val
 
-def kNeigbours(trx_data, try_data, tex_data):
-    knn = kNN(n_neighbors=8)
-    knn.fit(trx_data, try_data)
-    return knn
-
-def trees(data):
-    print("Trees")
-
-def logReg(data):
-    print("logReg")
-
-def ten_fold_cross_val():
-    print("Crossval")
+debug = False
 
 def friedman():
     print("Friedman")
@@ -46,17 +33,17 @@ def main():
     x_data = old_data.iloc[:,:-1]
     trx_data, tex_data, try_data, tey_data = train_test_split(x_data, y_data, test_size=0.3, random_state=42)
 
-    # Generate kNN Classifier
-    neighbourhood = kNeigbours(trx_data, try_data, tex_data)
-
-    # Generate Decision Tree Classifier
-    forest = trees(data)
-
-    # Genrate Logarithmic Regression Classifier
-    logboi = logReg(data)
+    # Generate models
+    neighbourhood, forest, longboi = gen_models(trx_data, try_data, tex_data)
 
     # Perform ten-fold cross-validation tests
-    validationMatrix = ten_fold_cross_val()
+    validationMatrix = ten_fold_cross_val([neighbourhood, forest, longboi], tex_data, tey_data)
+    if debug:
+        for test in validationMatrix:
+            print(test[0], end=": ")
+            for i in test[1]:
+                print(str(i), end=", ")
+            print()
 
     # Friedman Tests
     kNNFriedman = friedman()
