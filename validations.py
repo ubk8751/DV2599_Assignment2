@@ -62,5 +62,5 @@ def nemeyi(ranks):
         for j in range(i + 1, k):
             diff = np.abs(avg_ranks[i] - avg_ranks[j])
             if diff >= CD:
-                ret.append((i, j))
+                ret.append((i, j, diff))
     return ret

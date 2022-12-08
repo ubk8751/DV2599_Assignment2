@@ -22,8 +22,8 @@ def perform_friedman(ten_fold_data):
     if sig:
         print('Test is significant, performing Nemeyi test')
         nemeyi_res = nemeyi(friedman_res)
-        for a, b in nemeyi_res:
-            print(f'\tAlgorithms {a} and {b} exceeds critical difference')
+        for a, b, diff in nemeyi_res:
+            print(f'\tAlgorithms {a} and {b} exceeds critical difference {diff}')
 
     if debug:
 
@@ -59,7 +59,6 @@ def perform_friedman(ten_fold_data):
         print('-' * 64)
         print(f'{fold_range[10].rjust(15)}{dfv[10][0]:16.1f}{dfv[10][1]:16.1f}{dfv[10][2]:16.1f}')
         print('-' * 64)
-
 
 def main():
     # Import data
